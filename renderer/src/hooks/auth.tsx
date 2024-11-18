@@ -9,6 +9,7 @@ type User = {
 type AuthContextType = {
   user: User | null;
   loading: boolean;
+  token: string | null;
   error: string | null;
   signin: () => void;
   signout: (callback?: () => void) => void;
@@ -16,12 +17,13 @@ type AuthContextType = {
   isUserLoggedIn: boolean;
 };
 
-const AuthContext = createContext<AuthContextType | null>(null);
+export const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -58,6 +60,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const setTokenAndUser = (token: string) => {
+    setToken(token);
     localStorage.setItem('token', token);
     axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
@@ -73,7 +76,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const isUserLoggedIn = useCallback(() => !!user, [user]);
 
   return (
-    <AuthContext.Provider value={{ user, loading, error, signin, signout, setTokenAndUser, isUserLoggedIn: isUserLoggedIn() }}>
+    <AuthContext.Provider value={{ user, loading, error, signin, signout, token, setTokenAndUser, isUserLoggedIn: isUserLoggedIn() }}>
       {children}
     </AuthContext.Provider>
   );

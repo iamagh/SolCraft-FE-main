@@ -6,6 +6,13 @@ import serve from "electron-serve";
 
 import { replaceTscAliasPaths } from "tsc-alias";
 import { utilsTest } from "@utils/index";
+
+// const { Launcher } = require('minecraft-launcher-core');
+
+// import { Launcher } from "minecraft-launcher-core";
+
+
+
 replaceTscAliasPaths();
 
 require("dotenv").config({
@@ -13,6 +20,13 @@ require("dotenv").config({
     ? path.join(process.resourcesPath, ".env")
     : path.resolve(process.cwd(), ".env"),
 });
+
+
+/**
+ * Handles ipcMain event for setting the title of the main BrowserWindow.
+ * @param {Electron.IpcMainEvent} event
+ * @param {string} title
+ */
 
 function handleSetTitle(event: any, title: string) {
   const webContents = event.sender;
@@ -100,3 +114,58 @@ app.whenReady().then(() => {
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();
 });
+
+
+
+
+// function launchMinecraft() {
+//   // Configure Minecraft Launcher
+//   const launcher = new Launcher();
+
+//   const options = {
+//     clientPackage: null, // Set this to a URL or path if using a custom Minecraft package
+//     authorization: {
+//       access_token: 'your-access-token', // Use Mojang or Microsoft auth
+//       client_token: 'your-client-token',
+//       uuid: 'your-user-uuid',
+//       name: 'your-username',
+//     },
+//     root: './minecraft', // Path where Minecraft files are stored
+//     version: {
+//       number: '1.20.1', // Specify Minecraft version
+//       type: 'release',
+//     },
+//     memory: {
+//       max: '2G',
+//       min: '1G',
+//     },
+//   };
+
+//   // Launch Minecraft
+//   launcher.launch(options);
+
+//   launcher.on('debug', (e) => console.log('[DEBUG]', e));
+//   launcher.on('data', (e) => console.log('[DATA]', e));
+//   launcher.on('close', (e) => console.log('[CLOSE]', e));
+
+//   launcher.on('arguments', (args) => {
+//     console.log('Launching Minecraft with arguments:', args);
+
+//     // Launch Minecraft as a child process
+//     const gameProcess = spawn('java', args, {
+//       cwd: options.root,
+//     });
+
+//     gameProcess.stdout.on('data', (data) => {
+//       console.log(`[Game]: ${data}`);
+//     });
+
+//     gameProcess.stderr.on('data', (data) => {
+//       console.error(`[Error]: ${data}`);
+//     });
+
+//     gameProcess.on('close', (code) => {
+//       console.log(`Minecraft exited with code ${code}`);
+//     });
+//   });
+// }
