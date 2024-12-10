@@ -44,7 +44,7 @@ export default function Home() {
           var serverPort = data.serverPort;
           var mapId = data.mapId;
 
-          window.open(`minecraft://?addServer=94.131.106.89&port=25565`, '_blank');
+          window.open(`minecraft://?addServer=94.131.106.89&port=25565`, '_self');
 
           // let mainWindow;
           // console.log(global.createWindow);

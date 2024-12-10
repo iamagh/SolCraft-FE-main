@@ -6,11 +6,10 @@ import serve from "electron-serve";
 
 import { replaceTscAliasPaths } from "tsc-alias";
 import { utilsTest } from "@utils/index";
-
-// const { Launcher } = require('minecraft-launcher-core');
-
-// import { Launcher } from "minecraft-launcher-core";
-
+import type * as ConfigManagerTypes from "@utils/configmanager";
+import { initAuth } from "./auth";
+import { initGame } from "./game"
+import { initMainIPC } from "./mainIPC";
 
 
 replaceTscAliasPaths();
@@ -21,7 +20,10 @@ require("dotenv").config({
     : path.resolve(process.cwd(), ".env"),
 });
 
+const configManager: typeof ConfigManagerTypes = require("@utils/configmanager");
 
+
+let win: BrowserWindow | null = null;
 /**
  * Handles ipcMain event for setting the title of the main BrowserWindow.
  * @param {Electron.IpcMainEvent} event
@@ -30,7 +32,7 @@ require("dotenv").config({
 
 function handleSetTitle(event: any, title: string) {
   const webContents = event.sender;
-  const win = BrowserWindow.fromWebContents(webContents);
+  win = BrowserWindow.fromWebContents(webContents);
   if (win !== null) {
     win.setTitle(title);
   }
@@ -74,6 +76,7 @@ const createWindow = () => {
       devTools: !isProd,
     },
     show: false,
+    // icon: path.join(__dirname, "..", "..", "public", "assets", "logo.png"),     // set icon
   });
 
   // Expose URL
@@ -96,9 +99,9 @@ const createWindow = () => {
 
 app.whenReady().then(() => {
   ipcMain.on("set-title", handleSetTitle);
-
+  configManager.load();
   createSplashScreen();
-
+  configManager.loadDynamicConfig();
   console.log(utilsTest || "ERROR");
 
   // createWindow();
@@ -109,12 +112,17 @@ app.whenReady().then(() => {
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
+  initMainIPC();
+  initAuth();
+  initGame();
+
 });
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();
 });
 
+export { win };
 
 
 

@@ -4,17 +4,12 @@ import {IoChatbubble} from "react-icons/io5";
 import axiosInstance from "@/lib/axiosInstance";
 import {Dialog, DialogContent, DialogTrigger} from "@/components/ui/dialog";
 import {useAuth} from "@/hooks/auth";
+import {IFriend} from "@/interfaces/index";
 
-type IFriend = {
-  id: string;
-  image: string;
-  name: string;
-  isOnline: boolean;
-}
 
 const FriendsList = () => {
   const {isUserLoggedIn} = useAuth();
-
+  
   const [friends, setFriends] = useState<IFriend[]>([]);
   const [pendingFriends, setPendingFriends] = useState([]);
   const [friendEmail, setFriendEmail] = useState("");
