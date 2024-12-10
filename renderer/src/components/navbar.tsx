@@ -1,15 +1,15 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
-import {MdClose} from "react-icons/md";
-import {IoIosLock} from "react-icons/io";
+import { MdClose } from "react-icons/md";
+import { IoIosLock } from "react-icons/io";
 
-import {Dialog, DialogContent, DialogTrigger,} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger, } from "@/components/ui/dialog";
 import ManageWallet from "./manage_wallet";
-import {useAuth} from "@/hooks/auth";
+import { useAuth } from "@/hooks/auth";
 
 
 const Navbar = () => {
-  const {isUserLoggedIn, loading} = useAuth();
+  const { isUserLoggedIn, loading } = useAuth();
 
   return (
     <div className="text-white ">
@@ -33,7 +33,7 @@ const Navbar = () => {
                   <div
                     className="w-[200px] hover:opacity-50  bg-gradient-primary items-center border border-line rounded-full flex gap-2 p-2 lg:p-5">
                     <div className="flex mx-auto items-center gap-2">
-                      <IoIosLock size={24}/>
+                      <IoIosLock size={24} />
                       <p className=" text-[1vw] xl:text-[1.1vw] 2xl:text-[1.2vw]">
                         Manage Wallet
                       </p>
@@ -49,7 +49,7 @@ const Navbar = () => {
                   </div>
                 </div>}
             <DialogContent>
-              <ManageWallet/>
+              <ManageWallet />
             </DialogContent>
           </Dialog>
         </div>
@@ -71,7 +71,7 @@ const Navbar = () => {
           <div
             className="h-[70px] bg-gradient-to-b mx-auto from-[-100%] from-neutral-600 bg-dark hover:opacity-50 w-[70px] border border-line rounded-3xl flex items-center">
             <div className="flex mx-auto w-[30px] xl:w-[40px] ">
-              <MdClose size={100} color="white"/>
+              <MdClose size={100} color="white" />
             </div>
           </div>
         </button>

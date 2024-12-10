@@ -11,9 +11,6 @@ import CoinWatchList from "@/components/coin_watch";
 import FriendsList from "@/components/friends_list";
 import Chat from "@/components/friend/chat";
 import axiosInstance from "@/lib/axiosInstance";
-import { app, BrowserWindow, ipcMain } from "electron";
-
-
 
 
 export default function Home() {
@@ -43,36 +40,6 @@ export default function Home() {
           var serverAddress = data.serverAddress;
           var serverPort = data.serverPort;
           var mapId = data.mapId;
-
-          window.open(`minecraft://?addServer=94.131.106.89&port=25565`, '_blank');
-
-          // let mainWindow;
-          // console.log(global.createWindow);
-          // app.on("ready", () => {
-          //     mainWindow = new BrowserWindow({
-          //         width: 800,
-          //         height: 600,
-          //         webPreferences: {
-          //             nodeIntegration: true,
-          //             contextIsolation: false,
-          //         },
-          //     });
-
-          //     // mainWindow.loadFile("index.html");
-          // });
-
-          // // Listen for the launch request from the frontend
-          // ipcMain.on("start-game", (event, { serverIp, port }) => {
-          //     const launchCommand = `start minecraft://?addServer=${serverIp}&port=${port}`;
-              
-          //     exec(launchCommand, (error, stdout, stderr) => {
-          //         if (error) {
-          //             event.reply("start-game-error", error.message);
-          //         } else {
-          //             event.reply("start-game-success", `Connecting to ${serverIp}:${port}`);
-          //         }
-          //     });
-          // });
 
 
         } catch (error) {
