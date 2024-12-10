@@ -5,6 +5,7 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import { usePathname, useSelectedLayoutSegment } from "next/navigation";
 import { ReactNode, useEffect, useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "@/components/navbar";
 import { AuthProvider } from "@/hooks/auth";
 import Chat from "@/components/friend/chat";
@@ -38,16 +39,17 @@ export default function RootLayout({ children }: RootLayoutProps) {
               <MainSidebar route={pathname} />
               <div className="flex ml-[106px] flex-col w-[100vw - 106px]">
                 <Navbar />
-                {/* <Routes> */}
-                  {/* Define your routes */}
-                  {/* <Route path="/" element={<HomePage />} /> */}
-                  {/* <Route path="/about" element={<AboutPage />} /> */}
-                  {/* <Route path="/profile" element={<ProfilePage />} /> */}
-
-                  {/* Catch-all route */}
-                  {/* <Route path="*" element={<NotFoundPage />} /> */}
-                {/* </Routes> */}
-                <div className="">{children}</div>
+                <BrowserRouter>
+                  <Routes>
+                    {/* <Route path="/" element={<LauncherUpdater />} />
+                    <Route path="/auth" element={<Auth />} />
+                    <Route path="/launcher" element={<Launcher />} />
+                    <Route path="/updater" element={<Updater />} />
+                    <Route path="/settings" element={<Settings />} /> */}
+                  </Routes>
+                </BrowserRouter>
+                
+                <div className="qweqwe">{children}</div>
               </div>
               {/* <FriendRequestModal/> */}
             </div>

@@ -45,6 +45,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const signin = () => {
     window.location.href = "http://localhost:4000/auth/microsoft";
+    
   };
 
   const signout = async (callback?: () => void) => {
