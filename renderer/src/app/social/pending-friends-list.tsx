@@ -13,9 +13,8 @@ const PendingFriendsList = () => {
     <div>
         <div className=''>
         <div className="h-[90%] xl:h-auto grid py-2 gap-4  overflow-auto">
-          {friends.map((item) => (
-            <>
-              <div className="flex justify-between items-center xl:my-2 h-min">
+          {friends.map((item, index) => (
+              <div className="flex justify-between items-center xl:my-2 h-min" key={index}>
                 {/* <div className="grid mt-2 gap-2 items-center 2xl:grid-cols-12 grid-cols-12 mr-2"> */}
                 <div className="xl:w-[75px] items-center xl:h-[75px] w-[30px] h-[30px] flex gap-2">
                   <Image
@@ -36,7 +35,6 @@ const PendingFriendsList = () => {
                     <X onClick={() => {}}  className='m-2 border border-gray-200 p-1 w-8 h-8 rounded-full  hover:cursor-pointer  hover:opacity-60'/>    
                 </div>
               </div>
-            </>
           ))}
         </div>
         </div>
