@@ -116,6 +116,7 @@ export function getDataDirectory(def: boolean = false) {
 }
 
 export function getDynamicConfig() {
+  console.log("#######dynamicConfig", dynamicConfig)
   return dynamicConfig;
 }
 export function loadDynamicConfig() {

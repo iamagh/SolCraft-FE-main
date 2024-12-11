@@ -6,7 +6,12 @@ import serve from "electron-serve";
 
 import { replaceTscAliasPaths } from "tsc-alias";
 import { utilsTest } from "@utils/index";
+import { initMainIPC } from "./mainIPC"
+import { initAuth } from "./auth";
+import { initGame } from "./game";
 
+import type * as ConfigManagerTypes from "./utils/configmanager";
+const configManager: typeof ConfigManagerTypes = require("./utils/configmanager");
 // const { Launcher } = require('minecraft-launcher-core');
 
 // import { Launcher } from "minecraft-launcher-core";
@@ -70,7 +75,7 @@ if (isProd) {
 }
 
 const createWindow = () => {
-  const win = new BrowserWindow({
+  win = new BrowserWindow({
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
       devTools: !isProd,
@@ -99,14 +104,23 @@ const createWindow = () => {
 app.whenReady().then(() => {
   ipcMain.on("set-title", handleSetTitle);
 
+  configManager.load();
   createSplashScreen();
 
   console.log(utilsTest || "ERROR");
-
+  configManager.loadDynamicConfig();
   // createWindow();
   setTimeout(() => {
-    createWindow();
+    createWindow()
+    configManager.loadDynamicConfig();
+    initMainIPC();
+    initAuth();
+    initGame();
+    
   }, 2000);
+
+  
+
 
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
