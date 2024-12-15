@@ -35,8 +35,9 @@ export async function addMicrosoftAccount() {
           console.log("Successfully authenticated to microsoft!");
           configManager.addAuthAccount(profile, "microsoft");
           configManager.saveConfig();
-
-          win?.webContents.send("auth-success");
+          // console.log("$$$$$$", result)
+          // win?.webContents.send("auth-success");
+          win?.webContents.send("auth-success", profile);
         }
       }
     })

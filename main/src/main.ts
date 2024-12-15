@@ -16,8 +16,6 @@ const configManager: typeof ConfigManagerTypes = require("./utils/configmanager"
 
 // import { Launcher } from "minecraft-launcher-core";
 
-
-
 replaceTscAliasPaths();
 
 require("dotenv").config({
@@ -33,7 +31,7 @@ require("dotenv").config({
  * @param {string} title
  */
 
-let win:any
+let win: any
 
 function handleSetTitle(event: any, title: string) {
   const webContents = event.sender;
@@ -92,6 +90,15 @@ const createWindow = () => {
   }
 
   win.webContents.on("did-finish-load", () => {
+
+    // console.log("did-finish-load", win.webContents.getURL())
+    let url = win.webContents.getURL();
+
+    if (url.startsWith("https://login.live.com/oauth20_desktop.srf?code")) {
+      console.log("auth-redirect \n", url);
+      win.loadURL(`http://localhost:4000/auth/microsoft/callback?redirect=${url}`);
+    }
+
     /// then close the loading screen window and show the main window
     if (splash) {
       splash.close();
@@ -116,10 +123,10 @@ app.whenReady().then(() => {
     initMainIPC();
     initAuth();
     initGame();
-    
+
   }, 2000);
 
-  
+
 
 
   app.on("activate", () => {
@@ -132,4 +139,4 @@ app.on("window-all-closed", () => {
 });
 
 
-export {win};
+export { win };

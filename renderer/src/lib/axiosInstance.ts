@@ -9,12 +9,15 @@ function createAxiosInstance(): AxiosInstance {
     (request: any) => {
       // Get the token from local storage
       const token = localStorage.getItem('token');
-
+      const email = localStorage.getItem('email');
+      const username = localStorage.getItem('username');
       // If a token exists, add it to the Authorization header
       if (token) {
         request.headers = {
           ...request.headers,
           Authorization: `Bearer ${token}`,
+          email,
+          username
         };
       }
 
@@ -53,3 +56,8 @@ function createAxiosInstance(): AxiosInstance {
 const axiosInstance = createAxiosInstance();
 
 export default axiosInstance;
+
+
+
+
+

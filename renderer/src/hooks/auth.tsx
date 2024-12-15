@@ -43,9 +43,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       .then();
   }, []);
 
+  const handleMicrosoftLogin = () => {
+    let rememberMe = false;
+    window.ipc.send("microsoft-login", rememberMe);
+  };
+
   const signin = () => {
     window.location.href = "http://localhost:4000/auth/microsoft";
+    // handleMicrosoftLogin();
   };
+
+  
 
   const signout = async (callback?: () => void) => {
     try {
